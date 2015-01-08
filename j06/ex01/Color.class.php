@@ -65,3 +65,4 @@ Class Color
 		return (new Color(array('red' => $f * $this->red, 'green' => $f * $this->green, 'blue' => $f * $this->blue)));
 	}
 }
+?>

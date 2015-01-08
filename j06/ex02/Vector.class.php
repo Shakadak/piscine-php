@@ -1,4 +1,6 @@
 <?php
+
+
 Class Vector
 {
 	private _x = 1.0;

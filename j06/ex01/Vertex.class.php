@@ -115,3 +115,4 @@ Class Vertex
 		return ($before . file_get_contents("Vertex.doc.txt") . $after);
 	}
 }
+?>

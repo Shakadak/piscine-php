@@ -42,7 +42,7 @@ $vtc2  = new Vector( array( 'orig' => $orig2, 'dest' => $dest2 ) );
 
 print( 'Magnitude is ' . $vtc2->magnitude() . PHP_EOL );
 
-$nVtc2 = $vtc2->normalize();
+/*$nVtc2 = $vtc2->normalize();
 print( 'Normalized $vtc2 is ' . $nVtc2 . PHP_EOL );
 print( 'Normalized $vtc2 magnitude is ' . $nVtc2->magnitude() . PHP_EOL );
 
@@ -55,5 +55,5 @@ print( 'cross product of $vtc1 and $vtc2 is ' . $vtc1->crossProduct( $vtc2 ) . P
 print( 'cross product of $vtcXunit and $vtcYunit is ' . $vtcXunit->crossProduct( $vtcYunit ) . 'aka $vtcZunit' . PHP_EOL );
 print( 'cosinus of angle between $vtc1 and $vtc2 is ' . $vtc1->cos( $vtc2 ) . PHP_EOL );
 print( 'cosinus of angle between $vtcXunit and $vtcYunit is ' . $vtcXunit->cos( $vtcYunit ) . PHP_EOL );
-
+ */
 ?>
