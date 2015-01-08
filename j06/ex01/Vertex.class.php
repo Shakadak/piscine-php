@@ -95,6 +95,10 @@ Class Vertex
 
 	public static function doc()
 	{
-		return (file_get_contents("Vertex.doc.txt"));
+		$dash_separator = '----------------------------------------------------------------------';
+		$class_name = 'Vertex';
+		$before = '<- ' . $class_name . ' ' . $dash_separator . PHP_EOL;
+		$after = $dash_separator . ' ' . $class_name . ' ->' . PHP_EOL;
+		return ($before . file_get_contents("Vertex.doc.txt") . $after);
 	}
 }

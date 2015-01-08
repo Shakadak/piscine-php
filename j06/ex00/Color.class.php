@@ -24,12 +24,16 @@ Class Color
 			$this->blue = intval($kwargs['blue']);
 		}
 		if (self::$verbose)
-			print(self::__toString()." constructed\n");
+			print(self::__toString()." constructed.\n");
 	}
 
 	public static function doc()
 	{
-		return (file_get_contents("Color.doc.txt"));
+		$dash_separator = '----------------------------------------------------------------------';
+		$class_name = 'Color';
+		$before = '<- ' . $class_name . ' ' . $dash_separator . PHP_EOL;
+		$after = $dash_separator . ' ' . $class_name . ' ->' . PHP_EOL;
+		return ($before . file_get_contents("Color.doc.txt") . $after);
 	}
 
 	public function __toString()
@@ -43,7 +47,7 @@ Class Color
 	public function __destruct()
 	{
 		if (self::$verbose)
-			print(self::__toString()." destructed\n");
+			print(self::__toString()." destructed.\n");
 	}
 
 	public function add(Color $rhs)
