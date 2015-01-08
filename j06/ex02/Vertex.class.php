@@ -13,8 +13,14 @@ Class Vertex
 
 	public function __construct(array $kwargs)
 	{
+		if (!array_key_exists('x', $kwargs))
+			exit("Parameter 'x' missing in constructor\n");
 		$this->_x = $kwargs['x'];
+		if (!array_key_exists('y', $kwargs))
+			exit("Parameter 'y' missing in constructor\n");
 		$this->_y = $kwargs['y'];
+		if (!array_key_exists('z', $kwargs))
+			exit("Parameter 'x' missing in constructor\n");
 		$this->_z = $kwargs['z'];
 		if (array_key_exists('w', $kwargs))
 			$this->_w = $kwargs['w'];
@@ -84,14 +90,14 @@ Class Vertex
 
 	public function __get($att)
 	{
-		print("Attempt to access '".$att."' attribute, this script should die\n");
+		print("Vertex: Attempt to access '".$att."' attribute, this script should die\n");
 		exit;
 		return "fuck off";
 	}
 
 	public function __set($att, $value)
 	{
-		print("Attempt to set '".$att."' attribute to '".$value."', this script should die\n");
+		print("Vertex: Attempt to set '".$att."' attribute to '".$value."', this script should die\n");
 		exit;
 	}
 

@@ -1,40 +1,43 @@
 <?php
 
+require_once 'Vertex.class.php';
 
 Class Vector
 {
-	private _x = 1.0;
-	private _y = 1.0;
-	private _z = 1.0;
-	private _w = 0.0;
+	private $_x = 1.0;
+	private $_y = 1.0;
+	private $_z = 1.0;
+	private $_w = 0.0;
 	public static $verbose = False;
 
 	public function magnitude()
 	{
-		return (sqrt(pow($this->_x, 2), $this->_y, 2), $this->_z, 2)));
+		return (sqrt(pow($this->_x, 2) + pow($this->_y, 2) + pow($this->_z, 2)));
 	}
 
 	public function __construct(array $kwargs)
 	{
 		if (!array_key_exists('dest', $kwargs))
-			exit("Parameter 'dest' missing in constructor");
+			exit("Parameter 'dest' missing in constructor\n");
 		$dest = $kwargs['dest'];
 		if (array_key_exists('orig', $kwargs))
 			$orig = $kwargs['orig'];
+		else
+			$orig = new Vertex(['x' => 0, 'y' => 0, 'z' => 0]);
 		if (self::$verbose)
 			print(self::__toString()." constructed\n");
 	}
 
 	public function __get($att)
 	{
-		print("Attempt to access '".$att."' attribute, this script should die\n");
+		print("Vector: Attempt to access '".$att."' attribute, this script should die\n");
 		exit;
 		return "fuck off";
 	}
 
 	public function __set($att, $value)
 	{
-		print("Attempt to set '".$att."' attribute to '".$value."', this script should die\n");
+		print("Vector: Attempt to set '".$att."' attribute to '".$value."', this script should die\n");
 		exit;
 	}
 
@@ -71,7 +74,7 @@ Class Vector
 		$s_z = sprintf("%.2f", $this->_z);
 		$s_w = sprintf("%.2f", $this->_w);
 		if (self::$verbose)
-			return ("Vertex( x:$s_x, y:$s_y, z:$s_z, w:$s_w, $this->_color )");
+			return ("Vertex( x:$s_x, y:$s_y, z:$s_z, w:$s_w )");
 		return ("Vertex( x:$s_x, y:$s_y, z:$s_z, w:$s_w )");
 	}
 
