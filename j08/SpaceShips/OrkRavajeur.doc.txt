@@ -1,0 +1,7 @@
+<- OrkRavajeur ----------------------------------------------------------------------
+This class is used to create instances of the Ork's Ravajeur.
+Small sized with low armament.
+As per every daughter of the class Battleship, most
+of its attributes can be accessed using the appropriate get and set method.
+Your documentation here.
+---------------------------------------------------------------------- OrkRavajeur ->

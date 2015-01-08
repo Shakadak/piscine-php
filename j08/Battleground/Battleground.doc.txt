@@ -1,0 +1,10 @@
+<- Battleground ----------------------------------------------------------------------
+The Battleground class provide constants for the size of the map as well as
+a method to display the interstellar field. No value is returned.
+
+The method display may be called as following:
+$instance->display( array of ships );
+
+WIDTH and HEIGHT constants may be called directly using the Battleground class
+with the scope resolution operator: `::`.
+---------------------------------------------------------------------- Battleground ->

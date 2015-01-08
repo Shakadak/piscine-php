@@ -1,0 +1,7 @@
+<- Dice ----------------------------------------------------------------------
+This class only contain the roll function. It may serve to roll dices,
+the number of rolls to be specified in parameter as follow:
+$dice->roll($rollnb);
+
+It will return an array containing each successive roll.
+---------------------------------------------------------------------- Dice ->

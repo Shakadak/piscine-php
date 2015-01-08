@@ -1,0 +1,6 @@
+<- ImpCuirasse ----------------------------------------------------------------------
+This class is used to create instances of the Imperial Cuirasse.
+Heavy size and artillary.
+As per every daughter of the class Battleship, most
+of its attributes can be accessed using the appropriate get and set method.
+---------------------------------------------------------------------- ImpCuirasse ->

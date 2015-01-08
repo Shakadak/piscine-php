@@ -1,0 +1,14 @@
+<- EnumDirection ----------------------------------------------------------------------
+EnumDirection is a replacement to the missing enum structure, using the following
+constants:
+NORTH
+SOUTH
+EAST
+WEST
+LEFT
+RIGHT
+
+Not that {LEFT, RIGHT} should not be used against {NORTH, SOUTH, WEST, EAST}
+as it may lend unexpected result;
+The constant may only be called using the class, with the scope resolution operator.
+---------------------------------------------------------------------- EnumDirection ->

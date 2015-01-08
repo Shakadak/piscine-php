@@ -1,0 +1,17 @@
+<- BattleShip ----------------------------------------------------------------------
+BattleShip offers an implementation of the ISpaceShip interface.
+It come with a full set of get and set method to manipulate it's own daughter.
+As it doesn't hold any attribute, it isn't of much use by itself.
+The list of currently implemented method is as follow:
+getName: return the name of the ship, as a string,
+getPos: return an array filled with the straight coordinate of each part of
+its hull, to retrieve its coordinate in a two dimensional space, clever use of
+division and modulo associated with the constants defined in Battleground
+should wonderfully do the job,
+getSprite: return the color in wich the ship should be, as a string,
+setPos: Allow to change the coordinate of the ship, taking as parameter
+the distance travelled while facing in the same direction,
+getZ: return the orientation of the ship, North, South, West or East sided,
+setZ: Allow to change the orientation of the ship, clock and counter-clock wise,
+getSpeed: returning the maximum distance a ship can travel during it's activation.
+---------------------------------------------------------------------- BattleShip ->

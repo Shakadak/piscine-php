@@ -1,0 +1,7 @@
+<- Asteroid ----------------------------------------------------------------------
+This class is used to create instances of obstacle;
+Non-moving object, its crazy HP pool permit to make easy interaction when entering
+in contact with a spaceship.
+As per every daughter of the class Battleship, most
+of its attributes can be accessed using the appropriate get and set method.
+---------------------------------------------------------------------- Asteroid ->
