@@ -1,6 +1,7 @@
 <?php
 
 require_once('Vector.class.php');
+require_once('Vertex.class.php');
 
 class Matrix
 {
@@ -13,13 +14,6 @@ class Matrix
 	const PROJECTION = 'PROJECTION';
 
 	private $_preset;
-	private $_scale;
-	private $_angle;
-	private $_vtc;
-	private $_fov;
-	private $_ratio;
-	private $_near;
-	private $_far;
 
 	private $_matrix = [
 		[1, 0, 0, 0],
@@ -29,6 +23,31 @@ class Matrix
 		];
 
 	public static $verbose = false;
+
+	public function transformVertex(Vertex $vtx)
+	{
+		$x = $vtx->getX() * $this->_matrix[0][0] + $vtx->getY() * $this->_matrix[1][0] + $vtx->getZ() * $this->_matrix[2][0] + $this->_matrix[3][0];
+		$y = $vtx->getX() * $this->_matrix[0][1] + $vtx->getY() * $this->_matrix[1][1] + $vtx->getZ() * $this->_matrix[2][1] + $this->_matrix[3][1];
+		$z = $vtx->getX() * $this->_matrix[0][2] + $vtx->getY() * $this->_matrix[1][2] + $vtx->getZ() * $this->_matrix[2][2] + $this->_matrix[3][2];
+		$w = $vtx->getX() * $this->_matrix[0][3] + $vtx->getY() * $this->_matrix[1][3] + $vtx->getZ() * $this->_matrix[2][3] + $this->_matrix[3][3];
+		return (new Vertex(['x' => $x / $w, 'y' => $y / $w, 'z' => $z / $w]));
+	}
+
+	public function mult($rhs)
+	{
+		$old_verbose = Matrix::$verbose;
+		Matrix::$verbose = false;
+		$result = new Matrix(['preset' => Matrix::IDENTITY]);
+		Matrix::$verbose = $old_verbose;
+		for ($i = 0; $i < 4; $i++)
+		{
+			for ($j = 0; $j < 4; $j++)
+			{
+				$result->_matrix[$i][$j] = $this->_matrix[$i][0] * $rhs->_matrix[0][$j] + $this->_matrix[$i][1] * $rhs->_matrix[1][$j] + $this->_matrix[$i][2] * $rhs->_matrix[2][$j] + $this->_matrix[$i][3] * $rhs->_matrix[3][$j];
+			}
+		}
+		return ($result);
+	}
 
 	public function __construct(array $kwargs)
 	{
