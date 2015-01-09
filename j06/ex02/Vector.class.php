@@ -10,12 +10,20 @@ Class Vector
 	private $_w = 0.0;
 	public static $verbose = False;
 
-	public function dotProduct(Vector $rhs)
+	public function crossProduct(Vector $rhs)
 	{
-		return (new Vector(['dest' => new Vertex(['x' => $this->_x * $rhs->getX(), 'y' => $this->_y * $rhs->getY(), 'z' => $this->_z * $rhs->getZ()])]));
+		$x = $this->_y * $rhs->getZ() - $this->_z * $rhs->getY();
+		$y = $this->_x * $rhs->getZ() - $this->_z * $rhs->getX();
+		$z = $this->_x * $rhs->getY() - $this->_y * $rhs->getX();
+		return (new Vector(['dest' => new Vertex(['x' => $x, 'y' => -$y, 'z' => $z])]));
 	}
 
-	public function scalarProduct(Vector $k)
+	public function dotProduct(Vector $rhs)
+	{
+		return ($this->_x * $rhs->getX() + $this->_y * $rhs->getY() + $this->_z * $rhs->getZ());
+	}
+
+	public function scalarProduct($k)
 	{
 		return (new Vector(['dest' => new Vertex(['x' => $this->_x * $k, 'y' => $this->_y * $k, 'z' => $this->_z * $k])]));
 	}
