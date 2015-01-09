@@ -10,6 +10,15 @@ Class Vector
 	private $_w = 0.0;
 	public static $verbose = False;
 
+	public function cos(Vector $rhs)
+	{
+		$old_verbose = Vector::$verbose;
+		Vector::$verbose = false;
+		$cos_angle = $this->normalize()->dotProduct($rhs->normalize());
+		Vector::$verbose = $old_verbose;
+		return ($cos_angle);
+	}
+
 	public function crossProduct(Vector $rhs)
 	{
 		$x = $this->_y * $rhs->getZ() - $this->_z * $rhs->getY();
