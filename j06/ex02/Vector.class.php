@@ -10,6 +10,37 @@ Class Vector
 	private $_w = 0.0;
 	public static $verbose = False;
 
+	public function dotProduct(Vector $rhs)
+	{
+		return (new Vector(['dest' => new Vertex(['x' => $this->_x * $rhs->getX(), 'y' => $this->_y * $rhs->getY(), 'z' => $this->_z * $rhs->getZ()])]));
+	}
+
+	public function scalarProduct(Vector $k)
+	{
+		return (new Vector(['dest' => new Vertex(['x' => $this->_x * $k, 'y' => $this->_y * $k, 'z' => $this->_z * $k])]));
+	}
+
+	public function add(Vector $rhs)
+	{
+		return (new Vector(['dest' => new Vertex(['x' => $this->_x + $rhs->getX(), 'y' => $this->_y + $rhs->getY(), 'z' => $this->_z + $rhs->getZ()])]));
+	}
+
+	public function sub(Vector $rhs)
+	{
+		return (new Vector(['dest' => new Vertex(['x' => $this->_x - $rhs->getX(), 'y' => $this->_y - $rhs->getY(), 'z' => $this->_z - $rhs->getZ()])]));
+	}
+
+	public function opposite()
+	{
+		return (new Vector(['dest' => new Vertex(['x' => $this->_x * -1, 'y' => $this->_y * -1, 'z' => $this->_z * -1])]));
+	}
+
+	public function normalize()
+	{
+		$norme = $this->magnitude();
+		return (new Vector(['dest' => new Vertex(['x' => $this->_x / $norme, 'y' => $this->_y / $norme, 'z' => $this->_z / $norme])]));
+	}
+
 	public function magnitude()
 	{
 		return (sqrt(pow($this->_x, 2) + pow($this->_y, 2) + pow($this->_z, 2)));
@@ -24,26 +55,30 @@ Class Vector
 			$orig = $kwargs['orig'];
 		else
 			$orig = new Vertex(['x' => 0, 'y' => 0, 'z' => 0]);
-		if (self::$verbose)
+		$this->_x = $dest->getX() - $orig->getX();
+		$this->_y = $dest->getY() - $orig->getY();
+		$this->_z = $dest->getZ() - $orig->getZ();
+		$this->_w = $dest->getW() - $orig->getW();
+		if (self::$verbose === true)
 			print(self::__toString()." constructed\n");
 	}
 
 	public function __get($att)
 	{
-		print("Vector: Attempt to access '".$att."' attribute, this script should die\n");
+		print("Vector: Attempt to access '$att' attribute, this script should die\n");
 		exit;
 		return "fuck off";
 	}
 
 	public function __set($att, $value)
 	{
-		print("Vector: Attempt to set '".$att."' attribute to '".$value."', this script should die\n");
+		print("Vector: Attempt to set '$att' attribute to '$value', this script should die\n");
 		exit;
 	}
 
 	public function __destruct()
 	{
-		if (self::$verbose)
+		if (self::$verbose === true)
 			print(self::__toString()." destructed\n");
 	}
 
@@ -73,9 +108,7 @@ Class Vector
 		$s_y = sprintf("%.2f", $this->_y);
 		$s_z = sprintf("%.2f", $this->_z);
 		$s_w = sprintf("%.2f", $this->_w);
-		if (self::$verbose)
-			return ("Vertex( x:$s_x, y:$s_y, z:$s_z, w:$s_w )");
-		return ("Vertex( x:$s_x, y:$s_y, z:$s_z, w:$s_w )");
+		return ("Vector( x:$s_x, y:$s_y, z:$s_z, w:$s_w )");
 	}
 
 	public static function doc()

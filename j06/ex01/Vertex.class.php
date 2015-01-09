@@ -28,13 +28,13 @@ Class Vertex
 			$this->_color = $kwargs['color'];
 		else
 			$this->_color = new Color(array('rgb' => 0xffffff));
-		if (self::$verbose)
+		if (self::$verbose === true)
 			print(self::__toString()." constructed\n");
 	}
 
 	public function __destruct()
 	{
-		if (self::$verbose)
+		if (self::$verbose === true)
 			print(self::__toString()." destructed\n");
 	}
 
@@ -107,7 +107,7 @@ Class Vertex
 		$s_y = sprintf("%5.2f", $this->_y);
 		$s_z = sprintf("%.2f", $this->_z);
 		$s_w = sprintf("%.2f", $this->_w);
-		if (self::$verbose)
+		if (self::$verbose === true)
 			return ("Vertex( x:$s_x, y:$s_y, z:$s_z, w:$s_w, $this->_color )");
 		return ("Vertex( x:$s_x, y:$s_y, z:$s_z, w:$s_w )");
 	}

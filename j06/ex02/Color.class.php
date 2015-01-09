@@ -23,7 +23,7 @@ Class Color
 			$this->green = intval($kwargs['green']);
 			$this->blue = intval($kwargs['blue']);
 		}
-		if (self::$verbose)
+		if (self::$verbose === true)
 			print(self::__toString()." constructed.\n");
 	}
 
@@ -46,7 +46,7 @@ Class Color
 
 	public function __destruct()
 	{
-		if (self::$verbose)
+		if (self::$verbose === true)
 			print(self::__toString()." destructed.\n");
 	}
 
