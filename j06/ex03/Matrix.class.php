@@ -52,7 +52,7 @@ class Matrix
 		}
 		if (Matrix::$verbose === true)
 		{
-			print("Matrix $this->_preset instance constructed\n$this");
+			print("Matrix $this->_preset instance constructed\n");
 		}
 	}
 
@@ -72,16 +72,18 @@ class Matrix
 
 	public function __toString()
 	{
-		$string = "M | vtcX | vtcY | vtcZ | vtxO\n-----------------------------\n";
+		$string = "M | vtcX | vtcY | vtcZ | vtxO";
+			$string .= PHP_EOL;
+		$string .= "-----------------------------";
 		$prefix = ['x', 'y', 'z', 'w'];
 		for ($i = 0; $i < 4; $i++)
 		{
+			$string .= PHP_EOL;
 			$string .= $prefix[$i];
 			for ($j = 0; $j < 4; $j++)
 			{
 				$string .= sprintf(" | %.2f", $this->_matrix[$i][$j]);
 			}
-			$string .= PHP_EOL;
 		}
 		return ($string);
 	}
