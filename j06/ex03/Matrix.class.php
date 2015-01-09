@@ -25,6 +25,21 @@ class Matrix
 		{
 		case Matrix::$SCALE:
 			$this->_scale = $kwargs['scale'];
+			break;
+		case Matrix::$RX:
+		case Matrix::$RY:
+		case Matrix::$RZ:
+			$this->_angle = $kwargs['angle'];
+			break;
+		case Matrix::$TRANSLATION:
+			$this->_vtc = $kwargs['vtc'];
+			break;
+		case Matrix::$PROJECTION:
+			$this->_fov = $kwargs['fov'];
+			$this->_ratio = $kwargs['ratio'];
+			$this->_near = $kwargs['near'];
+			$this->_far = $kwargs['far'];
+			break;
 		}
 	}
 }
