@@ -44,10 +44,11 @@ class Matrix
 			$this->_vtc = $kwargs['vtc'];
 			break;
 		case Matrix::PROJECTION:
-			$this->_fov = $kwargs['fov'];
-			$this->_ratio = $kwargs['ratio'];
-			$this->_near = $kwargs['near'];
-			$this->_far = $kwargs['far'];
+			$fov = $kwargs['fov'];
+			$ratio = $kwargs['ratio'];
+			$near = $kwargs['near'];
+			$far = $kwargs['far'];
+			self::OpenGLPerspective($fov, $ratio, $near, $far);
 			break;
 		}
 		if (Matrix::$verbose === true)
@@ -86,6 +87,39 @@ class Matrix
 			}
 		}
 		return ($string);
+	}
+
+	private function OpenGLPerspective($fov, $ratio, $near, $far)
+	{
+		$scale = tan(deg2rad($fov * 0.5)) * $near;
+		$right = $ratio * $scale;
+		$left = -$right;
+		$top = $scale;
+		$bottom = -$top;
+		self::OpenGLFrustrum($left, $right, $bottom, $top, $near, $far);
+	}
+
+	private function OpenGLFrustrum($left, $right, $bottom, $top, $near, $far)
+	{
+		$this->_matrix[0][0] = (2 * $near) / ($right - $left);
+		$this->_matrix[0][1] = 0;
+		$this->_matrix[0][2] = ($right + $left) / ($right - $left);
+		$this->_matrix[0][3] = 0;
+
+		$this->_matrix[1][0] = 0;
+		$this->_matrix[1][1] = (2 * $near) / ($top - $bottom);
+		$this->_matrix[1][2] = ($top + $bottom) / ($top - $bottom);
+		$this->_matrix[1][3] = 0;
+
+		$this->_matrix[2][0] = 0;
+		$this->_matrix[2][1] = 0;
+		$this->_matrix[2][2] = -(($far + $near) / ($far - $near));
+		$this->_matrix[2][3] = -((2 * $far * $near) / ($far - $near));
+
+		$this->_matrix[3][0] = 0;
+		$this->_matrix[3][1] = 0;
+		$this->_matrix[3][2] = -1;
+		$this->_matrix[3][3] = 0;
 	}
 }
 ?>
