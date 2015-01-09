@@ -53,7 +53,7 @@ class Matrix
 		}
 		if (Matrix::$verbose === true)
 		{
-			print("Matrix $this->_preset instance constructed\n");
+			print("Matrix $this->_preset" . ($this->_preset == Matrix::IDENTITY ? "" : " preset" . " instance constructed\n");
 		}
 	}
 
