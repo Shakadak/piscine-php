@@ -1,4 +1,7 @@
 <?php
+
+require_once('Vector.class.php');
+
 class Matrix
 {
 	const IDENTITY = 'IDENTITY';
@@ -34,6 +37,7 @@ class Matrix
 		{
 		case Matrix::SCALE:
 			$scale = $kwargs['scale'];
+			self::scale($scale);
 			break;
 		case Matrix::RX:
 			$angle = $kwargs['angle'];
@@ -61,7 +65,7 @@ class Matrix
 		}
 		if (Matrix::$verbose === true)
 		{
-			print("Matrix $this->_preset" . ($this->_preset == Matrix::IDENTITY ? "" : " preset" . " instance constructed\n");
+			print("Matrix $this->_preset" . ($this->_preset == Matrix::IDENTITY ? "" : " preset") . " instance constructed\n");
 		}
 	}
 
@@ -137,34 +141,34 @@ class Matrix
 		$this->_matrix[2][2] *= $k;
 	}
 
-	private function translate($vtc)
+	private function translate(Vector $vtc)
 	{
-		$this->_matrix[0][3] = $vtx->getX();
-		$this->_matrix[1][3] = $vtx->getY();
-		$this->_matrix[2][3] = $vtx->getZ();
+		$this->_matrix[0][3] = $vtc->getX();
+		$this->_matrix[1][3] = $vtc->getY();
+		$this->_matrix[2][3] = $vtc->getZ();
 	}
 
 	private function rotateX($angle)
 	{
 		$this->_matrix[1][1] = cos($angle);
-		$this->_matrix[1][2] = sin($angle);
-		$this->_matrix[2][1] = -sin($angle);
+		$this->_matrix[1][2] = -sin($angle);
+		$this->_matrix[2][1] = sin($angle);
 		$this->_matrix[2][2] = cos($angle);
 	}
 
 	private function rotateY($angle)
 	{
 		$this->_matrix[0][0] = cos($angle);
-		$this->_matrix[0][2] = -sin($angle);
-		$this->_matrix[2][0] = sin($angle);
+		$this->_matrix[0][2] = sin($angle);
+		$this->_matrix[2][0] = -sin($angle);
 		$this->_matrix[2][2] = cos($angle);
 	}
 
 	private function rotateZ($angle)
 	{
 		$this->_matrix[0][0] = cos($angle);
-		$this->_matrix[0][1] = cos($angle);
-		$this->_matrix[1][0] = cos($angle);
+		$this->_matrix[0][1] = -sin($angle);
+		$this->_matrix[1][0] = sin($angle);
 		$this->_matrix[1][1] = cos($angle);
 	}
 }
