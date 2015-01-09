@@ -3,9 +3,9 @@ class Matrix
 {
 	const IDENTITY = 'IDENTITY';
 	const SCALE = 'SCALE';
-	const RX = 'RX';
-	const RY = 'RY';
-	const RZ = 'RZ';
+	const RX = 'Ox ROTATION';
+	const RY = 'Oy ROTATION';
+	const RZ = 'Oz ROTATION';
 	const TRANSLATION = 'TRANSLATION';
 	const PROJECTION = 'PROJECTION';
 
@@ -33,15 +33,18 @@ class Matrix
 		switch ($this->_preset)
 		{
 		case Matrix::SCALE:
-			$this->_scale = $kwargs['scale'];
+			$scale = $kwargs['scale'];
 			break;
 		case Matrix::RX:
 		case Matrix::RY:
 		case Matrix::RZ:
-			$this->_angle = $kwargs['angle'];
+			$angle = $kwargs['angle'];
 			break;
 		case Matrix::TRANSLATION:
-			$this->_vtc = $kwargs['vtc'];
+			$vtc = $kwargs['vtc'];
+			$this->_matrix[0][3] = $vtx->getX();
+			$this->_matrix[1][3] = $vtx->getY();
+			$this->_matrix[2][3] = $vtx->getZ();
 			break;
 		case Matrix::PROJECTION:
 			$fov = $kwargs['fov'];
