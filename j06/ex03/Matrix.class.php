@@ -18,6 +18,15 @@ class Matrix
 	private $_near;
 	private $_far;
 
+	private $matrix = [
+		[1, 0, 0, 0]
+		[0, 1, 0, 0]
+		[0, 0, 1, 0]
+		[0, 0, 0, 1]
+		];
+
+	public static $verbose = false;
+
 	public function __construct(array $kwargs)
 	{
 		$this->_preset = $kwargs['preset'];
@@ -41,6 +50,20 @@ class Matrix
 			$this->_far = $kwargs['far'];
 			break;
 		}
+	}
+
+	public function __destruct()
+	{
+		if (Matrix::$verbose === true) {print("Matrix instance destructed".PHP_EOL);}
+	}
+
+	public static function doc()
+	{
+		$dash_separator = '----------------------------------------------------------------------';
+		$class_name = 'Matrix';
+		$before = '<- ' . $class_name . ' ' . $dash_separator . PHP_EOL;
+		$after = $dash_separator . ' ' . $class_name . ' ->' . PHP_EOL;
+		return ($before . file_get_contents("$class_name.doc.txt") . $after);
 	}
 }
 ?>
