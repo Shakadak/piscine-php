@@ -26,10 +26,10 @@ class Matrix
 
 	public function transformVertex(Vertex $vtx)
 	{
-		$x = $vtx->getX() * $this->_matrix[0][0] + $vtx->getY() * $this->_matrix[1][0] + $vtx->getZ() * $this->_matrix[2][0] + $this->_matrix[3][0];
-		$y = $vtx->getX() * $this->_matrix[0][1] + $vtx->getY() * $this->_matrix[1][1] + $vtx->getZ() * $this->_matrix[2][1] + $this->_matrix[3][1];
-		$z = $vtx->getX() * $this->_matrix[0][2] + $vtx->getY() * $this->_matrix[1][2] + $vtx->getZ() * $this->_matrix[2][2] + $this->_matrix[3][2];
-		$w = $vtx->getX() * $this->_matrix[0][3] + $vtx->getY() * $this->_matrix[1][3] + $vtx->getZ() * $this->_matrix[2][3] + $this->_matrix[3][3];
+		$x = $vtx->getX() * $this->_matrix[0][0] + $vtx->getY() * $this->_matrix[0][1] + $vtx->getZ() * $this->_matrix[0][2] + $this->_matrix[0][3];
+		$y = $vtx->getX() * $this->_matrix[1][0] + $vtx->getY() * $this->_matrix[1][1] + $vtx->getZ() * $this->_matrix[1][2] + $this->_matrix[1][3];
+		$z = $vtx->getX() * $this->_matrix[2][0] + $vtx->getY() * $this->_matrix[2][1] + $vtx->getZ() * $this->_matrix[2][2] + $this->_matrix[2][3];
+		$w = $vtx->getX() * $this->_matrix[3][0] + $vtx->getY() * $this->_matrix[3][1] + $vtx->getZ() * $this->_matrix[3][2] + $this->_matrix[3][3];
 		return (new Vertex(['x' => $x / $w, 'y' => $y / $w, 'z' => $z / $w]));
 	}
 

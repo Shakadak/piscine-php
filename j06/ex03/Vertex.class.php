@@ -103,13 +103,13 @@ Class Vertex
 
 	public function __toString()
 	{
-		$s_x = sprintf("%5.2f", $this->_x);
-		$s_y = sprintf("%5.2f", $this->_y);
+		$s_x = sprintf("%.2f", $this->_x);
+		$s_y = sprintf("%.2f", $this->_y);
 		$s_z = sprintf("%.2f", $this->_z);
 		$s_w = sprintf("%.2f", $this->_w);
 		if (self::$verbose === true)
-			return ("Vertex( x:$s_x, y:$s_y, z:$s_z, w:$s_w, $this->_color )");
-		return ("Vertex( x:$s_x, y:$s_y, z:$s_z, w:$s_w )");
+			return ("Vertex( x: $s_x, y: $s_y, z:$s_z, w:$s_w, $this->_color )");
+		return ("Vertex( x: $s_x, y: $s_y, z:$s_z, w:$s_w )");
 	}
 
 	public static function doc()
