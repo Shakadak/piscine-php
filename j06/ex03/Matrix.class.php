@@ -36,15 +36,20 @@ class Matrix
 			$scale = $kwargs['scale'];
 			break;
 		case Matrix::RX:
+			$angle = $kwargs['angle'];
+			self::rotateX($angle);
+			break;
 		case Matrix::RY:
+			$angle = $kwargs['angle'];
+			self::rotateY($angle);
+			break;
 		case Matrix::RZ:
 			$angle = $kwargs['angle'];
+			self::rotateZ($angle);
 			break;
 		case Matrix::TRANSLATION:
 			$vtc = $kwargs['vtc'];
-			$this->_matrix[0][3] = $vtx->getX();
-			$this->_matrix[1][3] = $vtx->getY();
-			$this->_matrix[2][3] = $vtx->getZ();
+			self::translate($vtc);
 			break;
 		case Matrix::PROJECTION:
 			$fov = $kwargs['fov'];
@@ -123,6 +128,44 @@ class Matrix
 		$this->_matrix[3][1] = 0;
 		$this->_matrix[3][2] = -1;
 		$this->_matrix[3][3] = 0;
+	}
+
+	private function scale($k)
+	{
+		$this->_matrix[0][0] *= $k;
+		$this->_matrix[1][1] *= $k;
+		$this->_matrix[2][2] *= $k;
+	}
+
+	private function translate($vtc)
+	{
+		$this->_matrix[0][3] = $vtx->getX();
+		$this->_matrix[1][3] = $vtx->getY();
+		$this->_matrix[2][3] = $vtx->getZ();
+	}
+
+	private function rotateX($angle)
+	{
+		$this->_matrix[1][1] = cos($angle);
+		$this->_matrix[1][2] = sin($angle);
+		$this->_matrix[2][1] = -sin($angle);
+		$this->_matrix[2][2] = cos($angle);
+	}
+
+	private function rotateY($angle)
+	{
+		$this->_matrix[0][0] = cos($angle);
+		$this->_matrix[0][2] = -sin($angle);
+		$this->_matrix[2][0] = sin($angle);
+		$this->_matrix[2][2] = cos($angle);
+	}
+
+	private function rotateZ($angle)
+	{
+		$this->_matrix[0][0] = cos($angle);
+		$this->_matrix[0][1] = cos($angle);
+		$this->_matrix[1][0] = cos($angle);
+		$this->_matrix[1][1] = cos($angle);
 	}
 }
 ?>
