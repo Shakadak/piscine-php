@@ -1,0 +1,2 @@
+The Camera class handle the transformation pipeline
+from 3D to 2D.

@@ -10,6 +10,11 @@ class Triangle
 
 	public static $verbose = false;
 
+	public function getVertices()
+	{
+		return ([clone $this->_A, clone $this->_B, clone $this->_C]);
+	}
+
 	public function __construct(array $kwargs)
 	{
 		$this->_A = $kwargs['A'];
