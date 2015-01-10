@@ -24,8 +24,9 @@ class Matrix
 
 	public static $verbose = false;
 
-	public function transformMesh(array $test)
+	public function transformMesh(array $mesh)
 	{
+		foreach ($mesh as $triangle)
 	}
 
 	public function transpose()

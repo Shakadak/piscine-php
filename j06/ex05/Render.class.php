@@ -20,12 +20,12 @@ class Render
 		imagepng($this->_image, $this->_filename);
 	}
 
-	public function __construct(array $kwargs)
+	public function __construct($width, $height, $filename)
 	{
-		$this->_width = $kwargs['width'];
-		$this->_height = $kwargs['height'];
-		$this->_filename = $kwargs['filename'];
-		$this->_imge = imagecreatetruecolor($this->_width, $this->_height);
+		$this->_width = $width;
+		$this->_height = $height;
+		$this->_filename = $filename;
+		$this->_image = imagecreatetruecolor($this->_width, $this->_height);
 
 		if (Triangle::$verbose === true)
 		{

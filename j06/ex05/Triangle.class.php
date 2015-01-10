@@ -15,11 +15,11 @@ class Triangle
 		return ([clone $this->_A, clone $this->_B, clone $this->_C]);
 	}
 
-	public function __construct(array $kwargs)
+	public function __construct($A, $B, $C)
 	{
-		$this->_A = $kwargs['A'];
-		$this->_B = $kwargs['B'];
-		$this->_C = $kwargs['C'];
+		$this->_A = $A;
+		$this->_B = $B;
+		$this->_C = $C;
 
 		if (Triangle::$verbose === true)
 		{
