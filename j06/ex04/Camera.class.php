@@ -8,13 +8,19 @@ class Camera
 	public static $verbose = false;
 
 	private $_origin;
-	private $_orientation;
+	private $_tT;
+	private $_tR;
+	private $_proj;
 	private $_width;
 	private $_height;
-	private $_ratio;
-	private $_fov;
-	private $_near;
-	private $_far;
+
+	public function watchVertex(Vertex $worldVertex)
+	{
+		$view_matrix = $this->_tR->mult($this->_tT);
+		$cam_vertex = $view_matrix->transformVertex($worldVertex);
+		$ndc_vertex = $this->_proj->transformVertex($cam_vertex);
+		return (new Vertex(['x' => (1 + $ndc_vertex->getX()) * $this->_width / 2, 'y' => (1 + $ndc_vertex->getY()) * $this->_height / 2, 'z' => $ndc_vertex->getZ()]));
+	}
 
 	public static function doc()
 	{
@@ -28,18 +34,24 @@ class Camera
 	public function __construct(array $kwargs)
 	{
 		$this->_origin = $kwargs['origin'];
-		$this->_orientation = $kwargs['orientation'];
+		$orientation = $kwargs['orientation'];
+		$translation = new Vector(['dest' => $this->_origin]);
+		$this->_tT = new Matrix(['preset' => Matrix::TRANSLATION, 'vtc' => $translation->opposite()]);
+		$this->_tR = $orientation->transpose();
 		if (array_key_exists('ratio', $kwargs))
 		{
-			$this->_ratio = $kwargs['ratio'];
+			$ratio = $kwargs['ratio'];
 		}
 		else
 		{
-			$this->_ratio = $kwargs['width'] / $kwargs['height'];
+			$this->_width = $kwargs['width'];
+			$this->_height = $kwargs['height'];
+			$ratio = $kwargs['width'] / $kwargs['height'];
 		}
-		$this->_fov = $kwargs['fov'];
-		$this->_near = $kwargs['near'];
-		$this->_far = $kwargs['far'];
+		$fov = $kwargs['fov'];
+		$near = $kwargs['near'];
+		$far = $kwargs['far'];
+		$this->_proj = new Matrix(['preset' => Matrix::PROJECTION, 'fov' => $fov, 'ratio' => $ratio, 'near' => $near, 'far' => $far]);
 		if (Camera::$verbose === true) {print("Camera instance constructed".PHP_EOL);}
 	}
 
@@ -50,7 +62,7 @@ class Camera
 
 	public function __toString()
 	{
-		return ("Camera(\n+ Origine: $this->_origin\n+ tT:\n$this->_orientation\n+ tR:\n+ tR->mult( tT ):\n+ Proj:\n)\n");
+		return ("Camera( \n+ Origine: $this->_origin\n+ tT:\n$this->_tT\n+ tR:\n$this->_tR\n+ tR->mult( tT ):\n".$this->_tR->mult($this->_tT)."\n+ Proj:\n$this->_proj\n)");
 	}
 }
 ?>

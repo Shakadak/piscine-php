@@ -24,6 +24,22 @@ class Matrix
 
 	public static $verbose = false;
 
+	public function transpose()
+	{
+		$old_verbose = Matrix::$verbose;
+		Matrix::$verbose = false;
+		$result = new Matrix(['preset' => Matrix::IDENTITY]);
+		Matrix::$verbose = $old_verbose;
+		for ($i = 0; $i < 4; $i++)
+		{
+			for ($j = 0; $j < 4; $j++)
+			{
+				$result->_matrix[$i][$j] = $this->_matrix[$j][$i];
+			}
+		}
+		return ($result);
+	}
+
 	public function transformVertex(Vertex $vtx)
 	{
 		$x = $vtx->getX() * $this->_matrix[0][0] + $vtx->getY() * $this->_matrix[0][1] + $vtx->getZ() * $this->_matrix[0][2] + $this->_matrix[0][3];
