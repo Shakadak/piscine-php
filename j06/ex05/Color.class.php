@@ -7,6 +7,10 @@ Class Color
 	public $blue = 255;
 	public static $verbose = False;
 
+	public function toPngColor()
+	{
+	}
+
 	public function __construct(array $kwargs)
 	{
 		if (array_key_exists('rgb', $kwargs))

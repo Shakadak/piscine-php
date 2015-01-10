@@ -15,6 +15,10 @@ class Render
 
 	public static $verbose = false;
 
+	public function renderVertex(Vertex $screenVertex)
+	{
+	}
+
 	public function develop()
 	{
 		imagepng($this->_image, $this->_filename);

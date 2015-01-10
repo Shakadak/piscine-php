@@ -14,6 +14,19 @@ class Camera
 	private $_width;
 	private $_height = 480;
 
+	public function watchMesh(array $mesh)
+	{
+		foreach ($mesh as $triangle)
+		{
+			foreach ($triangle->get_vertices() as $vertex)
+			{
+				$t_vertex[] = $this->watchVertex($vertex);
+			}
+			$t_mesh[] = new Triangle($t_vertex[0], $t_vertex[1], $t_vertex[2]);
+		}
+		return ($t_mesh);
+	}
+
 	public function watchVertex(Vertex $worldVertex)
 	{
 		$view_matrix = $this->_tR->mult($this->_tT);

@@ -10,7 +10,7 @@ class Triangle
 
 	public static $verbose = false;
 
-	public function getVertices()
+	public function get_vertices()
 	{
 		return ([clone $this->_A, clone $this->_B, clone $this->_C]);
 	}

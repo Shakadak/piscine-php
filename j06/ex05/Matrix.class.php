@@ -27,6 +27,14 @@ class Matrix
 	public function transformMesh(array $mesh)
 	{
 		foreach ($mesh as $triangle)
+		{
+			foreach ($triangle->get_vertices() as $vertex)
+			{
+				$t_vertex[] = $this->transformVertex($vertex);
+			}
+			$t_mesh[] = new Triangle($t_vertex[0], $t_vertex[1], $t_vertex[2]);
+		}
+		return ($t_mesh);
 	}
 
 	public function transpose()
