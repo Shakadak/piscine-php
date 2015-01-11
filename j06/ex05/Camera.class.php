@@ -32,7 +32,7 @@ class Camera
 		$view_matrix = $this->_tR->mult($this->_tT);
 		$cam_vertex = $view_matrix->transformVertex($worldVertex);
 		$ndc_vertex = $this->_proj->transformVertex($cam_vertex);
-		return (new Vertex(['x' => (1 + $ndc_vertex->getX()) * $this->_width / 2, 'y' => (1 + $ndc_vertex->getY()) * $this->_height / 2, 'z' => $ndc_vertex->getZ()]));
+		return (new Vertex(['x' => (1 + $ndc_vertex->getX()) * $this->_width / 2, 'y' => (1 + $ndc_vertex->getY()) * $this->_height / 2, 'z' => $ndc_vertex->getZ(), 'color' => $ndc_vertex->getColor()]));
 	}
 
 	public static function doc()

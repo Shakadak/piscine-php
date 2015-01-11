@@ -7,8 +7,12 @@ Class Color
 	public $blue = 255;
 	public static $verbose = False;
 
-	public function toPngColor()
+	public function toPngColor($image)
 	{
+		$color = imagecolorallocate($image, $this->red, $this->green, $this->blue);
+		if ($color === false)
+			$color = imagecolorresolve($image, $this->red, $this->green, $this->blue);
+		return ($color);
 	}
 
 	public function __construct(array $kwargs)

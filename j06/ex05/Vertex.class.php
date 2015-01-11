@@ -25,9 +25,11 @@ Class Vertex
 		if (array_key_exists('w', $kwargs))
 			$this->_w = $kwargs['w'];
 		if (array_key_exists('color', $kwargs))
-			$this->_color = $kwargs['color'];
+			$this->_color = clone $kwargs['color'];
 		else
+		{
 			$this->_color = new Color(array('rgb' => 0xffffff));
+		}
 		if (self::$verbose === true)
 			print(self::__toString()." constructed\n");
 	}
@@ -60,7 +62,7 @@ Class Vertex
 
 	public function getColor()
 	{
-		return ($this->_color);
+		return (clone $this->_color);
 	}
 
 	public function setX($new)

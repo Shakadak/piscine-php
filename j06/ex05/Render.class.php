@@ -1,6 +1,8 @@
 <?php
 
-
+require_once('Vertex.class.php');
+require_once('Triangle.class.php');
+require_once('Color.class.php');
 
 class Render
 {
@@ -15,8 +17,36 @@ class Render
 
 	public static $verbose = false;
 
+	public function renderMesh($mesh, $mode)
+	{
+		foreach ($mesh as $triangle)
+		{
+			$this->renderTriangle($triangle, $mode);
+		}
+	}
+
+	public function renderTriangle(Triangle $triangle, $mode)
+	{
+		switch ($mode)
+		{
+		case Render::VERTEX:
+			$vertices = $triangle->get_vertices();
+			foreach ($vertices as $screen_vertex)
+			{
+				$this->renderVertex($screen_vertex);
+			}
+			break;
+		}
+	}
+
 	public function renderVertex(Vertex $screenVertex)
 	{
+		$z = $screenVertex->getZ();
+		//if (0 <= $z && $z <= 1)
+		{
+			$result = imagesetpixel($this->_image, $screenVertex->getX(), $screenVertex->getY(), $screenVertex->getColor()->toPngColor($this->_image));
+			print_r($screenVertex->getColor());
+		}
 	}
 
 	public function develop()

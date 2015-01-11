@@ -59,7 +59,7 @@ class Matrix
 		$y = $vtx->getX() * $this->_matrix[1][0] + $vtx->getY() * $this->_matrix[1][1] + $vtx->getZ() * $this->_matrix[1][2] + $this->_matrix[1][3];
 		$z = $vtx->getX() * $this->_matrix[2][0] + $vtx->getY() * $this->_matrix[2][1] + $vtx->getZ() * $this->_matrix[2][2] + $this->_matrix[2][3];
 		$w = $vtx->getX() * $this->_matrix[3][0] + $vtx->getY() * $this->_matrix[3][1] + $vtx->getZ() * $this->_matrix[3][2] + $this->_matrix[3][3];
-		return (new Vertex(['x' => $x / $w, 'y' => $y / $w, 'z' => $z / $w]));
+		return (new Vertex(['x' => $x / $w, 'y' => $y / $w, 'z' => $z / $w, 'color' => $vtx->getColor()]));
 	}
 
 	public function mult($rhs)
