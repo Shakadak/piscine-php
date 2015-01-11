@@ -22,8 +22,14 @@ class Triangle
 		$C->setZ(0);
 
 		$v0 = new Vector(['origin' => $A, 'dest' => $C]);
-		$v0 = new Vector(['origin' => $A, 'dest' => $B]);
-		$v0 = new Vector(['origin' => $A, 'dest' => $P]);
+		$v1 = new Vector(['origin' => $A, 'dest' => $B]);
+		$v2 = new Vector(['origin' => $A, 'dest' => $P]);
+
+		$d00 = $v0->dotProduct($v0);
+		$d01 = $v0->dotProduct($v1);
+		$d02 = $v0->dotProduct($v2);
+		$d11 = $v1->dotProduct($v1);
+		$d12 = $v1->dotProduct($v2);
 	}
 
 	private function same_side(Vertex $p1, Vertex $p2, Vertex $a, Vertex $b)
