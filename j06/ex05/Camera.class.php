@@ -18,13 +18,19 @@ class Camera
 	{
 		foreach ($mesh as $triangle)
 		{
-			foreach ($triangle->get_vertices() as $vertex)
-			{
-				$t_vertex[] = $this->watchVertex($vertex);
-			}
-			$t_mesh[] = new Triangle($t_vertex[0], $t_vertex[1], $t_vertex[2]);
+			$t_mesh[] = $this->watchTriangle($triangle);
 		}
 		return ($t_mesh);
+	}
+
+	public function watchTriangle(Triangle $triangle)
+	{
+		$vertices = $triangle->get_vertices();
+		foreach ($vertices as $vertex)
+		{
+			$t_vertex[] = $this->watchVertex($vertex);
+		}
+		return (new Triangle($t_vertex[0], $t_vertex[1], $t_vertex[2]));
 	}
 
 	public function watchVertex(Vertex $worldVertex)

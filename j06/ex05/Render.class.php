@@ -31,6 +31,8 @@ class Render
 		{
 		case Render::VERTEX:
 			$vertices = $triangle->get_vertices();
+			print("Rendering: ");
+			print_r($vertices);
 			foreach ($vertices as $screen_vertex)
 			{
 				$this->renderVertex($screen_vertex);
@@ -45,7 +47,6 @@ class Render
 		//if (0 <= $z && $z <= 1)
 		{
 			$result = imagesetpixel($this->_image, $screenVertex->getX(), $screenVertex->getY(), $screenVertex->getColor()->toPngColor($this->_image));
-			print_r($screenVertex->getColor());
 		}
 	}
 

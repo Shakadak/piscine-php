@@ -2,6 +2,7 @@
 
 require_once('Vector.class.php');
 require_once('Vertex.class.php');
+require_once('Triangle.class.php');
 
 class Matrix
 {
@@ -28,13 +29,19 @@ class Matrix
 	{
 		foreach ($mesh as $triangle)
 		{
-			foreach ($triangle->get_vertices() as $vertex)
-			{
-				$t_vertex[] = $this->transformVertex($vertex);
-			}
-			$t_mesh[] = new Triangle($t_vertex[0], $t_vertex[1], $t_vertex[2]);
+			$t_mesh[] = $this->transformTriangle($triangle);
 		}
 		return ($t_mesh);
+	}
+
+	public function transformTriangle(Triangle $triangle)
+	{
+		$vertices = $triangle->get_vertices();
+		foreach ($vertices as $vertex)
+		{
+			$t_vertex[] = $this->transformVertex($vertex);
+		}
+		return (new Triangle($t_vertex[0], $t_vertex[1], $t_vertex[2]));
 	}
 
 	public function transpose()
