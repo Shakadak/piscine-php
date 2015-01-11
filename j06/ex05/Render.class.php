@@ -48,6 +48,7 @@ class Render
 		$oy = round($origin->getY());
 		$ex = round($end->getX());
 		$ey = round($end->getY());
+		$size = sqrt(pow($ex - $ox, 2) + pow($ey - $oy, 2));
 		$dx = round($ox - $ex >= 0 ? $ox - $ex : $ex - $ox);
 		$dy = round($oy - $ey >= 0 ? $oy - $ey : $ey - $oy);
 		$sx = round($ox < $ex ? 1 : -1);
@@ -55,7 +56,8 @@ class Render
 		$errx = round($dx > $dy ? $dx : -$dy) / 2;
 		while ($ox != $ex || $oy != $ey)
 		{
-			$this->renderVertex(new Vertex(['x' => $ox, 'y' => $oy, 'z' => 1, 'color' => $origin->getColor()]));
+			$current_size = sqrt(pow($ex - $ox, 2) + pow($ey - $oy, 2));
+			$this->renderVertex(new Vertex(['x' => $ox, 'y' => $oy, 'z' => 1, 'color' => $origin->getColor()->bifusion($end->getColor(), 1 - ($current_size / $size))]));
 			$erry = $errx;
 			if ($erry > -$dx)
 			{
@@ -68,7 +70,7 @@ class Render
 				$oy += $sy;
 			}
 		}
-		$this->renderVertex(new Vertex(['x' => $ox, 'y' => $oy, 'z' => 1, 'color' => $origin->getColor()]));
+		$this->renderVertex(new Vertex(['x' => $ox, 'y' => $oy, 'z' => 1, 'color' => $end->getColor()]));
 	}
 
 	public function renderMesh($mesh, $mode)

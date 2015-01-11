@@ -7,6 +7,13 @@ Class Color
 	public $blue = 255;
 	public static $verbose = False;
 
+	public function bifusion(Color $destination, $advancement)
+	{
+		$o = $this->mult(1 - $advancement);
+		$e = $destination->mult($advancement);
+		return ($o->add($e));
+	}
+
 	public function toPngColor($image)
 	{
 		$color = imagecolorallocate($image, $this->red, $this->green, $this->blue);
