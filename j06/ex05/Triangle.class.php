@@ -15,10 +15,10 @@ class Triangle
 		$P = clone $v;
 		$P->setZ(0);
 		$A = $this->getA();
-		$A>setZ(0);
+		$A->setZ(0);
 		$B = $this->getB();
 		$B->setZ(0);
-		$C = $this->getC()
+		$C = $this->getC();
 		$C->setZ(0);
 
 		$v0 = new Vector(['origin' => $A, 'dest' => $C]);
@@ -34,6 +34,10 @@ class Triangle
 		$inv = 1 / ($d00 * $d11 - $d01 * $d01);
 		$u = ($d11 * $d02 - $d01 * $d12) * $inv;
 		$v = ($d00 * $d12 - $d01 * $d02) * $inv;
+
+		print("$u + $v = \n");
+
+		return ($u >= 0) && ($v >= 0) && ($u + $v < 1);
 	}
 
 	private function same_side(Vertex $p1, Vertex $p2, Vertex $a, Vertex $b)

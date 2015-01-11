@@ -34,7 +34,7 @@ class Render
 		{
 			for ($y = $minY; $y <= $maxY; $y++)
 			{
-				if ($triangle->point_in_triangle(new Vertex(['x' => $x, 'y' => $y, 'z' => 0])))
+				if ($triangle->contain_point(new Vertex(['x' => $x, 'y' => $y, 'z' => 0])))
 				{
 					$this->renderVertex(new Vertex(['x' => $x, 'y' => $y, 'z' => 0]));
 				}
@@ -42,25 +42,33 @@ class Render
 		}
 	}
 
-	private function render_line(Vertex $origin, Vertex $destination)
+	private function render_line(Vertex $origin, Vertex $end)
 	{
-		$x = $origin->getX();
-		$y = $origin->getY();
-		$dx = $destination->getX() - $x;
-		$dy = $destination->getY() - $y;
-
-		$e = $dy / $dx - 0.5;
-		for ($i = 0; $i <= $dx; $i++)
+		$ox = round($origin->getX());
+		$oy = round($origin->getY());
+		$ex = round($end->getX());
+		$ey = round($end->getY());
+		$dx = round($ox - $ex >= 0 ? $ox - $ex : $ex - $ox);
+		$dy = round($oy - $ey >= 0 ? $oy - $ey : $ey - $oy);
+		$sx = round($ox < $ex ? 1 : -1);
+		$sy = round($oy < $ey ? 1 : -1);
+		$errx = round($dx > $dy ? $dx : -$dy) / 2;
+		while ($ox != $ex || $oy != $ey)
 		{
-			$this->renderVertex(new Vertex(['x' => $x, 'y' => $y, 'z' => 1, 'color' => $origin->getColor()]));
-			while ($e >= 0)
+			$this->renderVertex(new Vertex(['x' => $ox, 'y' => $oy, 'z' => 1, 'color' => $origin->getColor()]));
+			$erry = $errx;
+			if ($erry > -$dx)
 			{
-				$y += 1;
-				$e -= 1;
+				$errx -= $dy;
+				$ox += $sx;
 			}
-			$x += 1;
-			$e += $dy / $dx;
+			if ($erry < $dy)
+			{
+				$errx += $dx;
+				$oy += $sy;
+			}
 		}
+		$this->renderVertex(new Vertex(['x' => $ox, 'y' => $oy, 'z' => 1, 'color' => $origin->getColor()]));
 	}
 
 	public function renderMesh($mesh, $mode)
