@@ -30,6 +30,8 @@ class Triangle
 		$d02 = $v0->dotProduct($v2);
 		$d11 = $v1->dotProduct($v1);
 		$d12 = $v1->dotProduct($v2);
+
+		$inv = 1 / ($d00 * $d11 - $d01 * $d01);
 	}
 
 	private function same_side(Vertex $p1, Vertex $p2, Vertex $a, Vertex $b)
