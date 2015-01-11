@@ -18,31 +18,10 @@ class Render
 
 	public static $verbose = false;
 
-	private function render_filled_triangle(Triangle $triangle)
-	{
-		print("Filling Triangle\n");
-		$v1 = $triangle->get_vertices()[0];
-		$v2 = $triangle->get_vertices()[1];
-		$v3 = $triangle->get_vertices()[2];
 
-		$minX = min($v1->getX(), min($v2->getX(), $v3->getX()));
-		$minY = min($v1->getY(), min($v2->getY(), $v3->getY()));
-		$maxX = max($v1->getX(), max($v2->getX(), $v3->getX()));
-		$maxY = max($v1->getY(), max($v2->getY(), $v3->getY()));
 
-		for ($x = $minX; $x <= $maxX; $x++)
-		{
-			for ($y = $minY; $y <= $maxY; $y++)
-			{
-				if ($triangle->contain_point(new Vertex(['x' => $x, 'y' => $y, 'z' => 0])))
-				{
-					$this->renderVertex(new Vertex(['x' => $x, 'y' => $y, 'z' => 0]));
-				}
-			}
-		}
-	}
 
-	public function 2dbresenham(Vertex $origin, Vertex $left, $right)
+	public function bibresenham(Vertex $origin, Vertex $left, Vertex $right)
 	{
 		$ox[0] = round($origin->getX());
 		$oy[0] = round($origin->getY());
@@ -54,6 +33,8 @@ class Render
 		$sx[0] = round($ox[0] < $ex[0] ? 1 : -1);
 		$sy[0] = round($oy[0] < $ey[0] ? 1 : -1);
 		$errx[0] = round($dx[0] > $dy[0] ? $dx[0] : -$dy[0]) / 2;
+		$color[0] = $left->getColor();
+
 
 		$ox[1] = round($origin->getX());
 		$oy[1] = round($origin->getY());
@@ -65,26 +46,43 @@ class Render
 		$sx[1] = round($ox[1] < $ex[1] ? 1 : -1);
 		$sy[1] = round($oy[1] < $ey[1] ? 1 : -1);
 		$errx[1] = round($dx[1] > $dy[1] ? $dx[1] : -$dy[1]) / 2;
+		$color[1] = $right->getColor();
+
 
 		$i = 0;
-		while ($ox[0] != $ex[0] + 1 || $oy[0] != $ey[0] + 1 || $ox[1] != $ex[1]|| $oy[1] != $ex[1])
+		while (true)
 		{
-			$current_size[$i] = sqrt(pow($ex - $ox, 2) + pow($ey - $oy, 2));
-			$this->renderVertex(new Vertex(['x' => $ox, 'y' => $oy, 'z' => 1, 'color' => $origin->getColor()->bifusion($end->getColor(), 1 - ($current_size / $size))]));
-			$erry = $errx;
-			if ($erry > -$dx)
+			$current_size[$i] = sqrt(pow($ex[$i] - $ox[$i], 2) + pow($ey[$i] - $oy[$i], 2));
+			$p_l = new Vertex(['x' => $ox[0], 'y' => $oy[0], 'z' => 1, 'color' => $origin->getColor()->bifusion($color[0], 1 - ($current_size[0] / $size[0]))]);
+			$p_r = new Vertex(['x' => $ox[1], 'y' => $oy[1], 'z' => 1, 'color' => $origin->getColor()->bifusion($color[1], 1 - ($current_size[1] / $size[1]))]);
+			$this->render_line($p_l, $p_r);
+
+			echo "echo\n";
+			if (($ox[0] == $ex[0] || $oy[0] == $ey[0]) && ($ox[1] == $ex[1] || $oy[1] == $ey[1]))
+				break;
+			$erry[$i] = $errx[$i];
+			if ($erry[$i] > -$dx[$i])
 			{
-				$errx -= $dy;
-				$ox += $sx;
+				if ($ox[$i] != $ex[$i])
+				{
+					$errx[$i] -= $dy[$i];
+					$ox[$i] += $sx[$i];
+				}
 			}
-			if ($erry < $dy)
+			if ($erry[$i] < $dy[$i])
 			{
-				$errx += $dx;
-				$oy += $sy;
+				if ($oy[$i] != $ey[$i])
+				{
+					$errx[$i] += $dx[$i];
+					$oy[$i] += $sy[$i];
+					$i = ($i + 1) % 2;
+				}
 			}
 		}
-		$this->renderVertex(new Vertex(['x' => $ox, 'y' => $oy, 'z' => 1, 'color' => $end->getColor()]));
 	}
+
+
+
 
 	private function render_line(Vertex $origin, Vertex $end)
 	{
@@ -144,7 +142,7 @@ class Render
 			}
 			break;
 		case Render::RASTERIZE:
-			$this->render_filled_triangle($triangle);
+			$this->bibresenham($triangle->getA(), $triangle->getB(), $triangle->getC());
 			break;
 		}
 	}
