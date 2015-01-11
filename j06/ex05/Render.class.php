@@ -42,6 +42,50 @@ class Render
 		}
 	}
 
+	public function 2dbresenham(Vertex $origin, Vertex $left, $right)
+	{
+		$ox[0] = round($origin->getX());
+		$oy[0] = round($origin->getY());
+		$ex[0] = round($left->getX());
+		$ey[0] = round($left->getY());
+		$size[0] = sqrt(pow($ex[0] - $ox[0], 2) + pow($ey[0] - $oy[0], 2));
+		$dx[0] = round($ox[0] - $ex[0] >= 0 ? $ox[0] - $ex[0] : $ex[0] - $ox[0]);
+		$dy[0] = round($oy[0] - $ey[0] >= 0 ? $oy[0] - $ey[0] : $ey[0] - $oy[0]);
+		$sx[0] = round($ox[0] < $ex[0] ? 1 : -1);
+		$sy[0] = round($oy[0] < $ey[0] ? 1 : -1);
+		$errx[0] = round($dx[0] > $dy[0] ? $dx[0] : -$dy[0]) / 2;
+
+		$ox[1] = round($origin->getX());
+		$oy[1] = round($origin->getY());
+		$ex[1] = round($left->getX());
+		$ey[1] = round($left->getY());
+		$size[1] = sqrt(pow($ex[1] - $ox[1], 2) + pow($ey[1] - $oy[1], 2));
+		$dx[1] = round($ox[1] - $ex[1] >= 1 ? $ox[1] - $ex[1] : $ex[1] - $ox[1]);
+		$dy[1] = round($oy[1] - $ey[1] >= 1 ? $oy[1] - $ey[1] : $ey[1] - $oy[1]);
+		$sx[1] = round($ox[1] < $ex[1] ? 1 : -1);
+		$sy[1] = round($oy[1] < $ey[1] ? 1 : -1);
+		$errx[1] = round($dx[1] > $dy[1] ? $dx[1] : -$dy[1]) / 2;
+
+		$i = 0;
+		while ($ox[0] != $ex[0] + 1 || $oy[0] != $ey[0] + 1 || $ox[1] != $ex[1]|| $oy[1] != $ex[1])
+		{
+			$current_size[$i] = sqrt(pow($ex - $ox, 2) + pow($ey - $oy, 2));
+			$this->renderVertex(new Vertex(['x' => $ox, 'y' => $oy, 'z' => 1, 'color' => $origin->getColor()->bifusion($end->getColor(), 1 - ($current_size / $size))]));
+			$erry = $errx;
+			if ($erry > -$dx)
+			{
+				$errx -= $dy;
+				$ox += $sx;
+			}
+			if ($erry < $dy)
+			{
+				$errx += $dx;
+				$oy += $sy;
+			}
+		}
+		$this->renderVertex(new Vertex(['x' => $ox, 'y' => $oy, 'z' => 1, 'color' => $end->getColor()]));
+	}
+
 	private function render_line(Vertex $origin, Vertex $end)
 	{
 		$ox = round($origin->getX());
@@ -108,7 +152,7 @@ class Render
 	public function renderVertex(Vertex $screenVertex)
 	{
 		$z = $screenVertex->getZ();
-		//if (0 <= $z && $z <= 1)
+		if (0 <= $z)// && $z <= 1)
 		{
 			$result = imagesetpixel($this->_image, $screenVertex->getX(), $screenVertex->getY(), $screenVertex->getColor()->toPngColor($this->_image));
 		}
