@@ -17,6 +17,8 @@ class Render
 
 	public static $verbose = false;
 
+	public function 
+
 	public function renderMesh($mesh, $mode)
 	{
 		foreach ($mesh as $triangle)
@@ -27,10 +29,10 @@ class Render
 
 	public function renderTriangle(Triangle $triangle, $mode)
 	{
+		$vertices = $triangle->get_vertices();
 		switch ($mode)
 		{
 		case Render::VERTEX:
-			$vertices = $triangle->get_vertices();
 			print("Rendering: ");
 			print_r($vertices);
 			foreach ($vertices as $screen_vertex)
@@ -38,6 +40,11 @@ class Render
 				$this->renderVertex($screen_vertex);
 			}
 			break;
+		case Render::EDGE:
+			for ($i = 0; $i < 3; $i++)
+			{
+				$this->render_line($vertices[$i], $vertices[($i + 1) % 3]);
+			}
 		}
 	}
 
