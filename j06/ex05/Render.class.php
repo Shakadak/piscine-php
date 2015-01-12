@@ -19,10 +19,41 @@ class Render
 	public static $verbose = false;
 
 
+	public function rasterize(Triangle $triangle)
+{
+	// 28.4 fixed-point coordinates
+	(int)$Y1 = round(16.0 * $triangle->getA()->getY());
+	(int)$Y2 = round(16.0 * $triangle->getB()->getY());
+	(int)$Y3 = round(16.0 * $triangle->getC()->getY());
+
+	(int)$X1 = round(16.0 * $triangle->getA()->getX());
+	(int)$X2 = round(16.0 * $triangle->getB()->getX());
+	(int)$X3 = round(16.0 * $triangle->getC()->getX());
+
+	//Deltas
+	(int)$DY12 = $Y1 - $Y2;
+	(int)$DY23 = $Y2 - $Y3;
+	(int)$DY31 = $Y3 - $Y1;
+
+	(int)$DX12 = $X1 - $X2;
+	(int)$DX23 = $X2 - $X3;
+	(int)$DX31 = $X3 - $X1;
+
+	//Fixed-point deltas
+	(int)$FDX12 = $DX12 << 4;
+	(int)$FDX23 = $DX23 << 4;
+	(int)$FDX31 = $DX31 << 4;
+
+	(int)$FDY12 = $DY12 << 4;
+	(int)$FDY23 = $DY23 << 4;
+	(int)$FDY31 = $DY31 << 4;
+}
 
 
 	public function bibresenham(Vertex $origin, Vertex $left, Vertex $right)
 	{
+
+		$test = 0;
 		$ox[0] = round($origin->getX());
 		$oy[0] = round($origin->getY());
 		$ex[0] = round($left->getX());
@@ -57,8 +88,8 @@ class Render
 			$p_r = new Vertex(['x' => $ox[1], 'y' => $oy[1], 'z' => 1, 'color' => $origin->getColor()->bifusion($color[1], 1 - ($current_size[1] / $size[1]))]);
 			$this->render_line($p_l, $p_r);
 
-			echo "echo\n";
-			if (($ox[0] == $ex[0] || $oy[0] == $ey[0]) && ($ox[1] == $ex[1] || $oy[1] == $ey[1]))
+			echo "echo:".$ox[0]." ==". $ex[0]." || ".$oy[0]." == ".$ey[0].") && (".$ox[1]." == ".$ex[1]." || ".$oy[1]." == ".$ey[1]."\n";
+			if (($ox[0] == $ex[0] && $oy[0] == $ey[0]) && ($ox[1] == $ex[1] && $oy[1] == $ey[1]))
 				break;
 			$erry[$i] = $errx[$i];
 			if ($erry[$i] > -$dx[$i])
@@ -86,6 +117,7 @@ class Render
 
 	private function render_line(Vertex $origin, Vertex $end)
 	{
+		print("Rendering line\n");
 		$ox = round($origin->getX());
 		$oy = round($origin->getY());
 		$ex = round($end->getX());
