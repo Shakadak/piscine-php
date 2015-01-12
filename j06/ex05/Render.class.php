@@ -53,6 +53,20 @@ class Render
 	(int)$maxx = (max($X1, max($X2, $X3)) + 0xF) >> 4;
 	(int)$miny = (min($Y1, min($Y2, $Y3)) + 0xF) >> 4;
 	(int)$maxy = (max($Y1, max($Y2, $Y3)) + 0xF) >> 4;
+
+	// Block size, standard 8x8 (must be power of two)
+	(int)$q = 8;
+
+	// Start in corner of 8x8 block
+	$minx &= ~($q - 1);
+	$miny &= ~($q - 1);
+
+	//
+
+	//Half-edge constants
+	(int)$C1 = $DY12 * $X1 - $DX12 * $Y1;
+	(int)$C2 = $DY23 * $X2 - $DX23 * $Y2;
+	(int)$C3 = $DY31 * $X3 - $DX31 * $Y3;
 }
 
 
