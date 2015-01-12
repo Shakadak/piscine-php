@@ -29,7 +29,6 @@ class Render
 	(int)$X1 = round(16.0 * $triangle->getA()->getX());
 	(int)$X2 = round(16.0 * $triangle->getB()->getX());
 	(int)$X3 = round(16.0 * $triangle->getC()->getX());
-	echo("$Y1\n$Y2\n$Y3\n$X1\n$X2\n$X3\n");
 
 	//Deltas
 	(int)$DY12 = $Y1 - $Y2;
