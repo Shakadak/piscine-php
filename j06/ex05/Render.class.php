@@ -47,6 +47,12 @@ class Render
 	(int)$FDY12 = $DY12 << 4;
 	(int)$FDY23 = $DY23 << 4;
 	(int)$FDY31 = $DY31 << 4;
+
+	//Bounding rectangle
+	(int)$minx = (min($X1, min($X2, $X3)) + 0xF) >> 4;
+	(int)$maxx = (max($X1, max($X2, $X3)) + 0xF) >> 4;
+	(int)$miny = (min($Y1, min($Y2, $Y3)) + 0xF) >> 4;
+	(int)$maxy = (max($Y1, max($Y2, $Y3)) + 0xF) >> 4;
 }
 
 
