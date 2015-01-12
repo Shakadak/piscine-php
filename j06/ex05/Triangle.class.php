@@ -8,7 +8,14 @@ class Triangle
 	private $_B;
 	private $_C;
 
+	private $_visible = true;
+
 	public static $verbose = false;
+
+	public function check_visibility(Camera $cam)
+	{
+		$this->_visibile = $cam->isVisible($this);
+	}
 
 	public function area()
 	{
@@ -32,6 +39,11 @@ class Triangle
 		$b_area = $acp->area();
 		$c_area = $abp->area();
 		return (Color::trifusion($this->_A->getColor(), $a_area / $t_area, $this->_B->getColor(), $b_area / $t_area, $this->_C->getColor(), $c_area / $t_area));
+	}
+
+	public function is_visible()
+	{
+		return ($this->_visible);
 	}
 
 	public function get_vertices()

@@ -1,7 +1,9 @@
 <?php
 
 require_once("Vertex.class.php");
+require_once("Vector.class.php");
 require_once("Matrix.class.php");
+require_once("Triangle.class.php");
 
 class Camera
 {
@@ -13,6 +15,15 @@ class Camera
 	private $_proj;
 	private $_width;
 	private $_height = 480;
+
+	public function isVisible(Triangle $tri)
+	{
+		$ap = new Vector(['origin' => $this->_origin, 'dest' => $tri->getA()]);
+		$ab = new Vector(['origin' => $tri->getA(), 'dest' => $tri->getB()]);
+		$ac = new Vector(['origin' => $tri->getA(), 'dest' => $tri->getC()]);
+		$n = $ab->crossProduct($ac);
+		return (($ap->dotProduct($n)) >= 0);
+	}
 
 	public function watchMesh(array $mesh)
 	{

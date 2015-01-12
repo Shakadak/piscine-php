@@ -54,7 +54,7 @@ $P = new Matrix( array( 'preset' => Matrix::PROJECTION,
 						'far' => -50.0 ) );
 print( $P . PHP_EOL . PHP_EOL );
 
-print( 'Matrices are so awesome, that they can be combined !' . PHP_EOL );
+/*print( 'Matrices are so awesome, that they can be combined !' . PHP_EOL );
 print( 'This is a model matrix that scales, then rotates around OY axis,' . PHP_EOL );
 print( 'then rotates around OX axis and finally translates.' . PHP_EOL );
 print( 'Please note the reverse operations order. It\'s not an error.' . PHP_EOL );
@@ -67,6 +67,6 @@ print( $vtxA . PHP_EOL );
 print( $M . PHP_EOL );
 print( 'Transform the damn vertex !' . PHP_EOL );
 $vtxB = $M->transformVertex( $vtxA );
-print( $vtxB . PHP_EOL . PHP_EOL );
+print( $vtxB . PHP_EOL . PHP_EOL );*/
 
 ?>

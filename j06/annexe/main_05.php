@@ -16,7 +16,7 @@ require_once 'Render.class.php';
 
 $renderer = new Render( 640, 480, 'pic.png' );
 
-/*
+
 function makeRepere() {
 	$red   = new Color( array( 'red' => 0xff, 'green' => 0   , 'blue' => 0    ) );
 	$green = new Color( array( 'red' => 0   , 'green' => 0xff, 'blue' => 0    ) );
@@ -83,21 +83,22 @@ $origin = $cam->watchVertex( $origin );
 $repere = makeRepere();
 $repere = $S->transformMesh( $repere );
 $repere = $cam->watchMesh( $repere );
-$renderer->renderMesh( $repere, Render::RASTERIZE);
+$renderer->renderMesh( $repere, Render::EDGE);
 $renderer->renderVertex( $origin );
 
 $cube = makeColoredCube( 0.0, 0.0, 0.0, 1.0 );
 $M = $T->mult( $RX )->mult( $RY )->mult( $S );
 $cube = $M->transformMesh( $cube );
 $cube = $cam->watchMesh( $cube );
-$renderer->renderMesh( $cube, Render::VERTEX );*/
+$renderer->renderMesh( $cube, Render::RASTERIZE );
 
 $triangle = new Triangle(new Vertex(['x' => 50, 'y' => 50, 'z' => 0]), new Vertex(['x' => 50, 'y' => 100, 'z' => 0]), new Vertex(['x' => 75, 'y' => 75, 'z' => 0]));
-$triangle2 = new Triangle(new Vertex(['x' => 100, 'y' => 50, 'z' => 0]), new Vertex(['x' => 100, 'y' => 100, 'z' => 0]), new Vertex(['x' => 75, 'y' => 75, 'z' => 0]));
+$triangle2 = new Triangle(new Vertex(['x' => 178, 'y' => 150, 'z' => 0]), new Vertex(['x' => 103, 'y' => 122, 'z' => 0]), new Vertex(['x' => 215, 'y' => 275, 'z' => 0]));
 $center = new Vertex(['x' => 75, 'y' => 75, 'z' => 0, 'color' => new Color(['rgb' => 0xf00000])]);
-$renderer->renderMesh([$triangle], Render::RASTERIZE);
-$renderer->renderMesh([$triangle2], Render::VERTEX);
-$renderer->renderVertex($center);
+//$renderer->renderMesh([$triangle], Render::EDGE);
+//$renderer->renderMesh([$triangle2], Render::RASTERIZE);
+//$renderer->renderMesh([$triangle2], Render::EDGE);
+//$renderer->renderVertex($center);
 
 $renderer->develop();
 
