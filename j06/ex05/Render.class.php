@@ -81,7 +81,7 @@ class Render
 		{
 			if($CX1 > 0 && $CX2 > 0 && $CX3 > 0)
 			{
-				imagesetpixel($this->_image, $x, $y, $triangle->getA()->getColor()->toPngColor($this->_image));
+				imagesetpixel($this->_image, $x, $y, $triangle->get_point_color(new Vertex(['x' => $x, 'y' => $y, 'z' => 0]))->toPngColor($this->_image));
 			}
 
 			$CX1 -= $FDY12;
@@ -96,74 +96,8 @@ class Render
 }
 
 
-	public function bibresenham(Vertex $origin, Vertex $left, Vertex $right)
-	{
-
-		(int)$test = 0;
-		$ox[0] = round($origin->getX());
-		$oy[0] = round($origin->getY());
-		$ex[0] = round($left->getX());
-		$ey[0] = round($left->getY());
-		$size[0] = sqrt(pow($ex[0] - $ox[0], 2) + pow($ey[0] - $oy[0], 2));
-		$dx[0] = round($ox[0] - $ex[0] >= 0 ? $ox[0] - $ex[0] : $ex[0] - $ox[0]);
-		$dy[0] = round($oy[0] - $ey[0] >= 0 ? $oy[0] - $ey[0] : $ey[0] - $oy[0]);
-		$sx[0] = round($ox[0] < $ex[0] ? 1 : -1);
-		$sy[0] = round($oy[0] < $ey[0] ? 1 : -1);
-		$errx[0] = round($dx[0] > $dy[0] ? $dx[0] : -$dy[0]) / 2;
-		$color[0] = $left->getColor();
-
-
-		$ox[1] = round($origin->getX());
-		$oy[1] = round($origin->getY());
-		$ex[1] = round($left->getX());
-		$ey[1] = round($left->getY());
-		$size[1] = sqrt(pow($ex[1] - $ox[1], 2) + pow($ey[1] - $oy[1], 2));
-		$dx[1] = round($ox[1] - $ex[1] >= 1 ? $ox[1] - $ex[1] : $ex[1] - $ox[1]);
-		$dy[1] = round($oy[1] - $ey[1] >= 1 ? $oy[1] - $ey[1] : $ey[1] - $oy[1]);
-		$sx[1] = round($ox[1] < $ex[1] ? 1 : -1);
-		$sy[1] = round($oy[1] < $ey[1] ? 1 : -1);
-		$errx[1] = round($dx[1] > $dy[1] ? $dx[1] : -$dy[1]) / 2;
-		$color[1] = $right->getColor();
-
-
-		$i = 0;
-		while (true)
-		{
-			$current_size[$i] = sqrt(pow($ex[$i] - $ox[$i], 2) + pow($ey[$i] - $oy[$i], 2));
-			$p_l = new Vertex(['x' => $ox[0], 'y' => $oy[0], 'z' => 1, 'color' => $origin->getColor()->bifusion($color[0], 1 - ($current_size[0] / $size[0]))]);
-			$p_r = new Vertex(['x' => $ox[1], 'y' => $oy[1], 'z' => 1, 'color' => $origin->getColor()->bifusion($color[1], 1 - ($current_size[1] / $size[1]))]);
-			$this->render_line($p_l, $p_r);
-
-			echo "echo:".$ox[0]." ==". $ex[0]." || ".$oy[0]." == ".$ey[0].") && (".$ox[1]." == ".$ex[1]." || ".$oy[1]." == ".$ey[1]."\n";
-			if (($ox[0] == $ex[0] && $oy[0] == $ey[0]) && ($ox[1] == $ex[1] && $oy[1] == $ey[1]))
-				break;
-			$erry[$i] = $errx[$i];
-			if ($erry[$i] > -$dx[$i])
-			{
-				if ($ox[$i] != $ex[$i])
-				{
-					$errx[$i] -= $dy[$i];
-					$ox[$i] += $sx[$i];
-				}
-			}
-			if ($erry[$i] < $dy[$i])
-			{
-				if ($oy[$i] != $ey[$i])
-				{
-					$errx[$i] += $dx[$i];
-					$oy[$i] += $sy[$i];
-					$i = ($i + 1) % 2;
-				}
-			}
-		}
-	}
-
-
-
-
 	private function render_line(Vertex $origin, Vertex $end)
 	{
-		print("Rendering line\n");
 		$ox = round($origin->getX());
 		$oy = round($origin->getY());
 		$ex = round($end->getX());
@@ -197,7 +131,6 @@ class Render
 	{
 		foreach ($mesh as $triangle)
 		{
-			print("JUMP\n");
 			$this->renderTriangle($triangle, $mode);
 		}
 	}
