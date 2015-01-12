@@ -29,6 +29,7 @@ class Render
 	(int)$X1 = round(16.0 * $triangle->getA()->getX());
 	(int)$X2 = round(16.0 * $triangle->getB()->getX());
 	(int)$X3 = round(16.0 * $triangle->getC()->getX());
+	echo("$Y1\n$Y2\n$Y3\n$X1\n$X2\n$X3\n");
 
 	//Deltas
 	(int)$DY12 = $Y1 - $Y2;
@@ -67,7 +68,7 @@ class Render
 	if ($DY31 < 0 || ($DY31 == 0 && $DX31 > 0))
 	{$C3++;}
 
-				(int)$CY1 = $C1 + $DX12 * ($miny << 4) - $DY12 * ($minx << 4);
+	(int)$CY1 = $C1 + $DX12 * ($miny << 4) - $DY12 * ($minx << 4);
 	(int)$CY2 = $C2 + $DX23 * ($miny << 4) - $DY23 * ($minx << 4);
 	(int)$CY3 = $C3 + $DX31 * ($miny << 4) - $DY31 * ($minx << 4);
 
