@@ -74,5 +74,14 @@ class Triangle
 			print("Triangle instance destructed\n");
 		}
 	}
+
+	public static function doc()
+	{
+		$dash_separator = '----------------------------------------------------------------------';
+		$class_name = 'Triangle';
+		$before = '<- ' . $class_name . ' ' . $dash_separator . PHP_EOL;
+		$after = $dash_separator . ' ' . $class_name . ' ->' . PHP_EOL;
+		return ($before . file_get_contents("$class_name.doc.txt") . $after);
+	}
 }
 ?>

@@ -1,0 +1,21 @@
+The triangle class handle triangle as a set of three Vertex.
+
+In order to construct one, you have to passe three Vertex to the constructor.
+new Triangle(Vertex $vtx1, Vertex $vtx2, Vertex $vtx2)
+
+The class offer the following methods:
+
+array(Vertex) get_vertices()
+Return an array containing the three vertices forming the triangle.
+
+bool is_visible()
+Return whether the triangle is facing the camera or not.
+
+Color get_point_color(Vertex $p)
+Return the color of the designated point within the boundaries of the triangle.
+
+Number area()
+Return the area of the triangle.
+
+check_visibility(Camera $cam)
+Set the visibility of the triangle according to the camera.

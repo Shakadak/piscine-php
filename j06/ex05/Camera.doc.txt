@@ -29,4 +29,4 @@ An array containing these keywords:
 		Takes a mesh using world coordinate and transform it into a projected mesh.
 
 	bool isVisible(Triangle $triangle)
-		Takes a triangle and return wether it is facing the camera or not.
+		Takes a triangle and return whether it is facing the camera or not.

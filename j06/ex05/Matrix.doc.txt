@@ -23,5 +23,14 @@ The following methods can be used.
 Matrix mult(Matrix $rhs)
 Return a new matrix resulting from their multiplication.
 
+Matrix transpose()
+Return a new matrix resulting from the transposition of the current one.
+
 Vertex transformVertex(Vertex $vtx)
 Return the vertex resulting from the application of the matrix.
+
+Triangle transformTriangle(Triangle $tri)
+Return the triangle resulting from the application of the matrix.
+
+array(Triangle) transformMesh(array(Triangle) $mesh)
+Return the mesh resulting from the application of the matrix.

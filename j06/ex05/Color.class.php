@@ -7,7 +7,7 @@ Class Color
 	public $blue = 255;
 	public static $verbose = False;
 
-	public function trifusion(Color $A, $progA, Color $B, $progB, Color $C, $progC)
+	public static function trifusion(Color $A, $progA, Color $B, $progB, Color $C, $progC)
 	{
 		$a = $A->mult($progA);
 		$b = $B->mult($progB);
