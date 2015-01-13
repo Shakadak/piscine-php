@@ -1,2 +1,32 @@
 The Camera class handle the transformation pipeline
 from 3D to 2D.
+
+In order to be able to construct a new instance, you will need to pass the following to the constructor:
+An array containing these keywords:
+	'origin'		=> Vertex:	This is where the camera will be positioned.
+	'orientation'	=> Matrice:	This will rotate the camera in the correct direction.
+	Either of these:
+	{
+		'width'		=> Number:	This will be used with 'height'.
+		'height'	=> Number:	Represent the resolution.
+	}
+	or
+	{
+		'ratio'		=> Number:	The ratio of the image that will be captured by the camera.
+	}
+	'fov'			=> Angle:	The field of view captured by the camera. A value of 60 is generaly adviced.
+	'near'			=> Number:	The distance from the camera where objects begin to appear.
+	'far'			=> Number:	The distance from the camera where objects start to disappear.
+
+	The following methods are available to operate various transformation.
+	Vertex watchVertex(Vertex $worldVertex)
+		Takes a vertex using world coordinate and transform it into a projected vertex, directly usable on screen.
+
+	Triangle watchTriangle(Triangle $worldTriangle)
+		Takes a triangle using world coordinate and transform it into a projected triangle.
+
+	array(Triangle) watchMesh(array(Triangle) $worldMesh)
+		Takes a mesh using world coordinate and transform it into a projected mesh.
+
+	bool isVisible(Triangle $triangle)
+		Takes a triangle and return wether it is facing the camera or not.

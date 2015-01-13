@@ -21,3 +21,16 @@ Substracts each color constitutive and returns a new Color instance.
 Color   mult( $f );
 Multiplies each color constitutive by factor $f and returns a new Color
 instance.
+
+color identifier toPngColor(ressource $image)
+Takes an image ressource and return the identifier corresponding to
+the color stored in the instance of Color.
+
+Color bifusion (Color $target, $progression)
+Takes an ending color and return a color between
+the current instance and the one passed to the method depending on the progression given.
+
+Color trifudion (Color $A, $progressionA, Color $B, $progressionB, Color $C, $progressionC)
+This is a static method.
+It takes three color and their respective proportion.
+The color returned depend on the proportion asked for.
