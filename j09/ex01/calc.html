@@ -27,7 +27,7 @@
 				rhs = isNaN(rhs) ? -1 : parseInt(rhs);
 				rhs = isNaN(rhs) ? -1 : rhs;
 
-				var operator = document.forms['calculator']["operator"].value;
+				var op = document.forms['calculator']["operator"].value;
 
 				if (lhs < 0 || rhs < 0)
 				{
@@ -36,26 +36,8 @@
 				}
 				else
 				{
-					switch (operator)
-					{
-						case '+':
-						result(lhs + rhs);
-						break;
-						case '-':
-						result(lhs - rhs);
-						break;
-						case '*':
-						result(lhs * rhs);
-						break;
-						case '/':
-						if (rhs == 0) {result("It's over 9000!");}
-						else {result(lhs / rhs);}
-						break;
-						case '%':
-						if (rhs == 0) {result("It's over 9000!");}
-						else {result(lhs % rhs);}
-						break;
-					}
+					if (rhs == 0 && (op == '/' || op == '%')) result("It's over 9000!");
+					else result(eval(lhs + op + rhs));
 				}
 			}
 
