@@ -1,1 +1,27 @@
 The Matrix classe handle 4x4 matrices.
+
+In order to be able to construct a new instance, you will need to pass the following to the constructor:
+An array containing these keywords:
+	'preset'	=> CONST:	Contain one of the following class constant. From these depend what will the others
+							parameters be.
+	Matrix::SCALE
+		'scale'	=> number:	The factor by wich the matrix generated will scale.
+	Matrix::RX
+	Matrix::RY
+	Matrix::RZ
+		'angle'	=> radians:	The angle by witch the rotation will be applied, corresponding to the given axe.
+	Matrix::TRANSLATION
+		'vtc'	=> Vector:	The vector that will apply the translation.
+	Matrix::PROJECTION
+		'fov'	=> degrees:	Field of view of the projection.
+		'ratio'	=> number:	Ratio of the projected image.
+		'near'	=> number:	Nearest plane for the projection.
+		'far'	=> number:	Furthest plane for the projection.
+
+The following methods can be used.
+
+Matrix mult(Matrix $rhs)
+Return a new matrix resulting from their multiplication.
+
+Vertex transformVertex(Vertex $vtx)
+Return the vertex resulting from the application of the matrix.

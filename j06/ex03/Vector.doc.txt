@@ -1,1 +1,35 @@
 The Vector classe handle vectors.
+
+In order to construct an instance, you have to provide an array containing the following:
+'dest' => Vertex: The ending point of the vector.
+'orig' => [Vertex:optionnal]: The starting point of the vector.
+	By default, the origin of the space containing the vector.
+
+The class propose the following methods:
+
+float magnitude()
+Return the norm of the vector.
+
+Vector normalize()
+Return a new vector normalized to its normed vector space.
+
+Vector add(Vector $rhs)
+Return the sum of tho vector.
+
+Vector sub(Vector $rhs)
+Return the substraction of two vector.
+
+Vector opposite()
+Return the opposite of the vector.
+
+Vector scalarProduct($k)
+Return the result of the scalar product between the vector and the scalar value.
+
+float dotProduct(Vector $rhs)
+Return the dot product of the vectors.
+
+float cos(Vector $rhs)
+Return the cosine angle between the two vector.
+
+Vector crossProduct(Vector $rhs)
+Return the result of the crossProduct between two vectors.
