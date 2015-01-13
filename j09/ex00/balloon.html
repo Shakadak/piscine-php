@@ -1,0 +1,68 @@
+<!doctype html>
+<html>
+	<head>
+		<title>Javascript</title>
+	</head>
+	<body>
+		<div id='balloon' style="width:200px;height:200px;background:red;align:center;border-radius:50%;" onclick="grow()" onmouseout="debilitate()"></div>
+		<script>
+			var b_size = 200;
+			var b_color = 0;
+
+			function grow()
+			{
+				if (b_size >= 420)
+				{
+					b_size = 200;
+					set_size(b_size);
+					set_color(1);
+				}
+				else
+				{
+					b_size += 10;
+					set_size(b_size);
+					set_color(1);
+				}
+			}
+
+			function set_color(increment)
+			{
+				b_color = (b_color + increment + 3) % 3;
+				var color;
+				switch(b_color)
+				{
+					case 0:
+					color = 'red';
+					break;
+					case 1:
+					color = 'green';
+					break;
+					case 2:
+					color = 'blue';
+					break;
+				}
+				document.getElementById('balloon').style.background = color;
+			}
+
+			function set_size(size)
+			{
+				document.getElementById('balloon').style.height = size + 'px';
+				document.getElementById('balloon').style.width = size + 'px';
+			}
+
+			function debilitate()
+			{
+				if (b_size == 200)
+				{
+					set_color(-1);
+				}
+				else
+				{
+					b_size -= 5;
+					set_size(b_size);
+					set_color(-1);
+				}
+			}
+		</script>
+	</body>
+</html>
