@@ -1,0 +1,76 @@
+<!doctype html>
+<html>
+	<head>
+		<title>Javascript</title>
+		<script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
+	</head>
+	<body>
+		<div id='balloon' style="width:200px;height:200px;background:red;align:center;border-radius:50%;"></div>
+		<script>
+				var b_size = 200;
+				var b_color = 0;
+
+				function grow()
+				{
+					if (b_size >= 420)
+					{
+						b_size = 200;
+						set_size(b_size);
+						set_color(1);
+					}
+					else
+					{
+						b_size += 10;
+						set_size(b_size);
+						set_color(1);
+					}
+				}
+
+				function set_color(increment)
+				{
+					b_color = (b_color + increment + 3) % 3;
+					var color;
+					switch(b_color)
+					{
+						case 0:
+						color = 'red';
+						break;
+						case 1:
+						color = 'green';
+						break;
+						case 2:
+						color = 'blue';
+						break;
+					}
+					$('#balloon').css('background', color);
+				}
+
+				function set_size(size)
+				{
+					$('#balloon').height(size + 'px');
+					$('#balloon').width(size + 'px');
+				}
+
+				function debilitate()
+				{
+					if (b_size == 200)
+					{
+						set_color(-1);
+					}
+					else
+					{
+						b_size -= 5;
+						set_size(b_size);
+						set_color(-1);
+					}
+				}
+
+			$(document).ready(function()
+			{
+				$('#balloon').click(grow);
+				$('#balloon').mouseout(debilitate);
+			}
+			);
+		</script>
+	</body>
+</html>
